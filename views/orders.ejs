@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Orders</title>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        .order { border: 1px solid #ccc; padding: 15px; margin: 10px; }
+    </style>
+</head>
+<body>
+
+<h1>🧾 My Orders</h1>
+
+<% if (orders.length === 0) { %>
+    <p>No orders yet</p>
+<% } %>
+
+<% orders.forEach(order => { %>
+  <div class="order" style="width: 500px;">
+    <h3><%= order.productName %></h3>
+    <p>Price: ₹<%= order.price %></p>
+    <p>Qty: <%= order.qty %></p>
+    <p>Status: ✅ Ordered</p>
+
+  </div>
+<% }) %>
+<br>
+ <a href="/products">
+        <button>🔙 Back to Products</button>
+    </a>
+</body>
+</html>
+<style>
+      button {
+            padding: 10px 20px;
+            background: black;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+</style>

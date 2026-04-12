@@ -1,0 +1,26 @@
+<link rel="stylesheet" href="/css/style.css">
+ <%- include("../includes/navbar.ejs") %>
+
+
+<div class="kitchen">
+<% toys.forEach(p=>{ %>
+     <div class="product-card">
+      <img src="<%= p.image.filename %>"  width="320px"
+  height="300px">
+      <h3><%= p.title %></h3>
+      <p><%= p.description %></p>
+      <p>₹<%= p.price %></p>
+      <p>Rating:<%= p.rating %>⭐</p>
+      <form action="/cart/add/<%= p._id %>" method="POST">
+  <button>Add to Cart</button>
+</form>
+ <form action="/wishlist/add/<%= p._id %>" method="POST">
+  <label class="heart-container">
+    <input style="background-color: red;" type="checkbox" onclick="this.form.submit()">
+    <span class="heart"></span>
+  </label>
+</form>
+  </div>
+    <% }) %>    
+</div>
+<%- include("../includes/footer.ejs") %>

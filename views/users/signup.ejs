@@ -1,0 +1,30 @@
+    <%- include("../includes/navbar.ejs") %>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+  body{
+    overflow-x: hidden;
+  }
+</style>
+<div class="row mt-4">
+    <h1 style="font-family: 'Times New Roman', Times, serif;" class="col-4 offset-5 fw-medium mt-4 fs-3">SignUp for Amazon.in</h1>
+    <div class="col-8 offset-4 mt-3">
+<form action="/signup" method="post" class="needs-validation" novalidate>
+  <div class="mb-3">
+                    <label for="username" class="form-label fw-normal fs-5">Username</label>
+                    <input type="text" name="username" class="form-control w-50" id="username" required>
+                    <div class="valid-feedback">Looks good</div>
+                </div>
+                 <div class="mb-3">
+                    <label for="email" class="form-label fs-5 fw-normal">Email</label>
+                    <input type="email" name="email" class="form-control w-50" id="email" required>
+                </div>
+                 <div class="mb-3">
+                    <label for="password" class="form-label fs-5 fw-normal">Password</label>
+                    <input type="password" name="password" class="form-control w-50 " id="password" required>
+                </div>
+                <button class="btn bg-success text-light"><b>SignUp</b></button>
+                <a  class="btn bg-success offset-4 text-light" href="/login"><b>Login</b></a>
+</form>
+    </div>
+</div> 

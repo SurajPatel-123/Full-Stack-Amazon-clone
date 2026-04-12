@@ -1,0 +1,116 @@
+
+<style>
+   body{
+      background-color: #ccc;
+    margin: 0 auto;   
+   }
+</style>
+<h1 style="margin-left: 600px;">Buy Products</h1>
+
+<% if (product) { %>
+<div style="background-color: white; width: 600px;
+height: 540px; margin-left: 380px; padding-top: 10px;">
+<div style=" height: 530px; margin-left: 10px;
+width: 300px;">
+  <div class="product" style="line-height: 0.1; height: 200px; align-items: center; text-align: center; padding-top: 10px;">
+    <img style="height: 150px; width: 150px;" src="<%= product.image.filename %>" width="300">
+    <h3 style="word-spacing: 2px;"><%= product.title %></h3>
+   
+    </div>
+    </div>
+    <div style="width: 1px; height: 500px; margin-left: 310px; background-color: grey; margin-top: -520px;"></div>
+    <div style=" width: 280px;
+height: 550px; margin-left: 320px; margin-top: -520px;">
+    <div style="font-size: 18px; font-weight: 550; padding-top: 20px; padding-left: 15px;">Order Summary</div>
+    <hr>
+    <div id="qty" style="padding-left: 15px; font-size: 18px; font-weight: 500">Quantity: <input id="qtyInput" style="width: 40px;" type="number" value="1" min="1"></div>
+  <hr>
+  <div style="padding-left: 15px; font-size: 18px; font-weight: 500">Total: <span id="total">₹ <%= product.price %></span></div>
+  <hr>
+  <div style="font-size: 20px; font-weight: 550; padding-left: 15px;">Delivery Address</div>
+  <input type="text" id="name" style="margin-top: 20px; margin-left: 15px;" placeholder="Full Name" required>
+  <br><br>
+  <input type="text" id="city" style="margin-left: 15px;" placeholder="Enter City" required>
+  <br><br>
+    <input type="text" id="address" placeholder="Enter Address" style="margin-left: 15px;" required>
+  <br><br>
+  <input type="number" id="pincode" placeholder="Enter Pincode" style="margin-left: 15px;" required>
+  <br><br>
+  <hr>
+  <div  style="font-size: 20px; font-weight: 550; padding-left: 15px;">Payment Method</div>
+  <input type="radio" id="cod" name="payment" value="cod" style="margin-left: 10px; margin-top: 20px;">
+  <h4 for="cod" style="margin-left: 30px; margin-top: -15px;">Cash on Delivery</h4>
+<input id="upi" name="payment" value="upi" style="margin-left: 10px; margin-top: -10px;" type="radio"> 
+<h4 for="upi" style="margin-left: 30px; margin-top: -15px;">UPI/Card</h4>
+<button onclick="placeOrder()" type="button" style="height: 30px; width: 250px; font-size: 18px; font-weight: 550; border: none; outline: none; margin-left: 15px; background-color: rgb(240, 172, 45); color: white;">Place Order</button>
+</div>
+  </div>
+
+<% } else { %>
+
+  <h2>Product not found 😢</h2>
+
+<% } %>
+
+</div>
+<script>
+  const price = "<%= product.price %>";
+const title = "<%= product.title %>";
+const image = "<%= product.image.filename %>";
+
+  const qtyInput = document.getElementById("qtyInput"); // 🔥 FIX
+  const totalEl = document.getElementById("total");
+
+  function updateTotal() {
+    const qty = parseInt(qtyInput.value) || 1;
+    const total = price * qty;
+    totalEl.innerText = "₹ " + total;
+  }
+
+  qtyInput.addEventListener("input", updateTotal);
+
+  function placeOrder() {
+    const name = document.getElementById("name").value.trim();
+    const city = document.getElementById("city").value.trim();
+    const address = document.getElementById("address").value.trim();
+    const pincode = document.getElementById("pincode").value.trim();
+    const payment = document.querySelector('input[name="payment"]:checked');
+    const qty = qtyInput.value;
+
+    if (!name || !city || !address || !pincode) {
+      alert("⚠️ Please fill all address details");
+      return;
+    }
+
+    if (!payment) {
+      alert("⚠️ Please select a payment method");
+      return;
+    }
+
+    fetch("/place-order", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+          productImage: "<%= product.image.filename %>",
+        productName: "<%= product.title %>",
+        price: "<%= product.price %>",
+      
+        qty: qty,
+        name,
+        city,
+        address,
+        pincode,
+        payment: payment.value
+      })
+    })
+    .then(() => {
+      window.location.href = "/order-confirm";
+    })
+    .catch(err => {
+      console.log(err);
+      alert("❌ Order failed");
+    });
+  }
+</script>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+   <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+   <main>
+      <div class="front">
+         <div class="front-sec1">
+            <div class="slide img1 active"></div>
+            <div class="slide img2"></div>
+            <div class="slide img3"></div>
+            <div class="slide img4"></div>
+            <div class="slide img5"></div>
+         </div>
+         <button class="arrow left"><i class="fa-solid fa-angle-left"></i></button>
+         <button class="arrow right"><i class="fa-solid fa-angle-right"></i></button>
+      </div>
+
+   </main>
+   <div class="kit1">
+      <div class="i2">
+         <div class="img6"></div>
+      </div>
+      <p class="des">Kitchen Essentials</p>
+      <p class="tit" onclick="KitchenPage()">Show More</p>
+   </div>
+   <div class="kit2">
+      <div class="i2">
+         <div class="img7"></div>
+      </div>
+      <p class="des">Beauty Products</p>
+      <p class="tit" onclick="beautyPage()">Show More</p>
+   </div>
+   <div class="kit3">
+      <div class="i2">
+         <div class="img8"></div>
+      </div>
+      <p class="des">Electronics</p>
+      <p class="tit" onclick="electronicPage()">Show More</p>
+   </div>
+   <div class="kit4">
+      <div class="i2">
+         <div class="img9"></div>
+      </div>
+      <p class="des">Books</p>
+      <p class="tit" onclick="bookPage()">Show More</p>
+   </div>
+   <div class="kit5">
+      <div class="i2">
+         <div class="img10"></div>
+      </div>
+      <p class="des">Mobile Accessories</p>
+      <p class="tit" onclick="mobilePage()">Show More</p>
+   </div>
+   <div class="kit6">
+      <div class="i2">
+         <div class="img11"></div>
+      </div>
+      <p class="des">Sports</p>
+      <p class="tit" onclick="sportPage()">Show More</p>
+   </div>
+   <div class="kit7">
+      <div class="i2">
+         <div class="img12"></div>
+      </div>
+      <p class="des">Toys</p>
+      <p class="tit" onclick="toysPage()">Show More</p>
+   </div>
+   <div class="kit8">
+      <div class="i2">
+         <div class="img13"></div>
+      </div>
+      <p class="des">Fashion</p>
+      <p class="tit" onclick="fashionPage()">Show More</p>
+   </div>
+   <script>
+      function sportPage(){
+         window.location.href="/sport";
+      }
+      function bookPage(){
+         window.location.href="/books";
+      }
+      function KitchenPage() {
+         window.location.href = "/kitchen";
+      }
+      function beautyPage(){
+         window.location.href="/beauty";
+      }
+      function electronicPage(){
+         window.location.href="/electronics";
+      }
+      function toysPage(){
+         window.location.href="/toys";
+      }
+      function mobilePage(){
+         window.location.href="/mobile";
+      }
+      function fashionPage(){
+         window.location.href="/fashion";
+      }
+      const slides = document.querySelectorAll(".slide");
+      const nextBtn = document.querySelector(".right");
+      const prevBtn = document.querySelector(".left");
+
+      let index = 0;
+      let interval = setInterval(nextSlide, 5000);
+
+      function showSlide(i) {
+         slides.forEach(slide => slide.classList.remove("active"));
+         slides[i].classList.add("active");
+      }
+
+      function nextSlide() {
+         index = (index + 1) % slides.length;
+         showSlide(index);
+      }
+
+      function prevSlide() {
+         index = (index - 1 + slides.length) % slides.length;
+         showSlide(index);
+      }
+
+      nextBtn.addEventListener("click", () => {
+         nextSlide();
+         resetInterval();
+      });
+
+      prevBtn.addEventListener("click", () => {
+         prevSlide();
+         resetInterval();
+      });
+
+      function resetInterval() {
+         clearInterval(interval);
+         interval = setInterval(nextSlide, 5000);
+      }
+
+   </script>
+</body>
+
+</html>

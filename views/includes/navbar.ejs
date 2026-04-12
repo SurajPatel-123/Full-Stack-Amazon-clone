@@ -1,0 +1,147 @@
+
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+<style>
+    #cart-count{
+     margin-left: 25px;
+        color: white;
+    }
+</style>
+    <div class="container1" style="position: sticky;">
+        <div class="logo" onclick="reload()">
+            <div class="content1">.in</div>
+        </div>
+<div class="location">
+    <div class="loc-icon"></div>
+
+    <p class="loc-first">
+        Delivering to
+    </p>
+
+    <p class="loc-sec"  id="user-location" onclick="updateLocation()">
+        Update location
+    </p>
+</div>
+    
+        <div class="search">
+    <select class="sel" id="category">
+        <option value="all">All</option>
+        <option value="beauty">Beauty</option>
+        <option value="book">Book</option>
+        <option value="electronics">Electronics</option>
+        <option value="fashion">Fashion</option>
+        <option value="kitchen">Kitchen</option>
+        <option value="mobile">Mobile</option>
+        <option value="sports">Sports</option>
+        <option value="toys">Toys</option>
+    </select>
+
+    <div class="sea-box2">
+        <input type="text" id="searchInput" placeholder="Search Amazon.in"
+        style="border:none; margin-top: 10px; outline:none; height:15px; font-size:16px; width:400px;">
+    </div>
+
+    <div class="sea-mag" onclick="searchProduct()">
+        <i class="fa-solid fa-magnifying-glass"></i>
+    </div>
+</div>
+      <div class="sign">
+  <% if (!curruser) { %>
+      <a href="/signup">SignUp</a> Or
+      <a href="/login">Login</a>
+  <% } else { %>
+  Welcome <%= curruser.username %><br>
+  <a href="/logout">Logout</a>
+    <% } %>
+</div>
+        <div class="ret">
+            <a class="ret-1" href="/wishlist" >Wishlist</a>
+        </div>
+        <div class="cart" onclick="goToCart()">
+            <div class="cart-icon"><div class="cart-count"><%= cartCount %></div></div>
+            <p class="cart-1">Cart</p>
+          
+        </div>
+    </div>
+<% if(showContainer2==="/products"){ %>
+    <div class="container2">
+        <div class="sea-options">
+            <i class="fa-solid fa-bars"></i>
+            <ul class="option">
+                <p>All</p>
+                <a style="text-decoration: none; color: white;" href="/orders">Order Page</a>
+                <p>MX Player</p>
+                <p>Sell</p>
+                <p>Bestsellers</p>
+               <a style="text-decoration: none; color: white;" href="/mobile">Mobiles</a>
+              <a style="text-decoration: none; color: white;" onclick="footer()">Customer Service</a>
+                <p>Today's Deals</p>
+              <a style="text-decoration: none; color: white;" href="/fashion">Fashion</a>
+                <p>New Releases</p>
+                <p>Amazon Pay</p>
+            </ul>
+        </div>
+    </div>
+    <% } %>
+    <script>
+        function reload(){
+            window.location.reload({
+                behaviour:"smooth"
+            })
+        }
+    function goToCart(){
+        window.location.href="/cart";
+    }
+    
+    function updateCartCount(){
+        let cart=JSON.parse(localStorage.getItem("cart"))||[];
+        document.getElementById("cart-count").innerText=cart.length;
+    };
+    updateCartCount();
+function updateLocation() {
+    let city = prompt("Enter your city:");
+
+    if (city && city.trim() !== "") {
+        let finalCity = city.trim();
+
+        // UI update
+        document.getElementById("user-location").innerText =
+            `${finalCity}`;
+
+        // Save in browser
+        localStorage.setItem("userLocation", finalCity);
+    }
+}
+
+// Page load pe auto set
+window.onload = function () {
+    let saved = localStorage.getItem("userLocation");
+
+    if (saved) {
+        document.getElementById("user-location").innerText =
+            `${saved}`;
+    }
+};
+function searchProduct() {
+  const query = document.getElementById("searchInput").value.trim();
+  const category = document.getElementById("category").value;
+
+  if (!query) {
+    alert("Please enter something to search");
+    return;
+  }
+
+  // redirect to backend route
+  window.location.href = `/search?q=${query}&category=${category}`;
+};
+document.getElementById("searchInput").addEventListener("keypress", function(e){
+  if(e.key === "Enter"){
+    searchProduct();
+  }
+});
+function footer(){
+    window.scrollBy(0,1600)
+}
+    </script>
