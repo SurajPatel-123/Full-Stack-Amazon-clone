@@ -27,7 +27,7 @@ router.post("/add/:id",isLoggedIn, async (req, res) => {
   await cart.save();
   req.flash("success","Your product is added in Cart");
 
-  res.redirect("/products");
+  res.redirect("/");
 });
  
 router.get("/", async (req, res) => {

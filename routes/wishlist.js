@@ -26,7 +26,7 @@ router.post("/add/:id",isLoggedIn, async (req, res) => {
 
   await wishlist.save();
 req.flash("success","Your Product is added in wishlist");
-  res.redirect("/products");
+  res.redirect("/");
 });
  
 router.get("/", async (req, res) => {
@@ -54,6 +54,6 @@ router.post("/remove/:id",async (req, res) => {
 
   await wishlist.save();
 req.flash("error","Product is remove in wishlist");
-  res.redirect("/products");
+  res.redirect("/");
 });
 module.exports=router;
