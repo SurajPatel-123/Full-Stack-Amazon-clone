@@ -138,11 +138,11 @@ app.use("/", userRoutes);
 app.use("/cart", cartRoutes);
 app.use("/wishlist", wishlistRoutes);
 app.use("/buy", buyRoutes);
-app.use("/", productRoutes);
+app.use("/products", productRoutes);
 
 // ================= HOME =================
 app.get("/", (req, res) => {
-  res.render("products/index.ejs", { showContainer2: req.path });
+  res.render("products/index", { showContainer2: req.path });
 });
 
 // ================= INIT DATA =================
@@ -155,42 +155,42 @@ app.get("/init", async (req, res) => {
 // ================= CATEGORY ROUTES =================
 app.get("/kitchen", async (req, res) => {
   const kitchen = await Product.find({ category: "kitchen" });
-  res.render("productpages/Kitchen.ejs", { kitchen, showContainer2: false });
+  res.render("productpages/Kitchen", { kitchen, showContainer2: false });
 });
 
 app.get("/electronics", async (req, res) => {
   const ElectronicsProducts = await Product.find({ category: "electronics" });
-  res.render("productpages/electronics.ejs", { ElectronicsProducts, showContainer2: false });
+  res.render("productpages/electronics", { ElectronicsProducts, showContainer2: false });
 });
 
 app.get("/toys", async (req, res) => {
   const toys = await Product.find({ category: "toys" });
-  res.render("productpages/toys.ejs", { toys, showContainer2: false });
+  res.render("productpages/toys", { toys, showContainer2: false });
 });
 
 app.get("/mobile", async (req, res) => {
   const mobile = await Product.find({ category: "mobile" });
-  res.render("productpages/mobile.ejs", { mobile, showContainer2: false });
+  res.render("productpages/mobile", { mobile, showContainer2: false });
 });
 
 app.get("/fashion", async (req, res) => {
   const fashion = await Product.find({ category: "fashion" });
-  res.render("productpages/fashion.ejs", { fashion, showContainer2: false });
+  res.render("productpages/fashion", { fashion, showContainer2: false });
 });
 
 app.get("/sport", async (req, res) => {
   const sports = await Product.find({ category: "sports" });
-  res.render("productpages/sports.ejs", { sports, showContainer2: false });
+  res.render("productpages/sports", { sports, showContainer2: false });
 });
 
 app.get("/books", async (req, res) => {
   const books = await Product.find({ category: "books" });
-  res.render("productpages/book.ejs", { books, showContainer2: false });
+  res.render("productpages/book", { books, showContainer2: false });
 });
 
 app.get("/beauty", async (req, res) => {
   const beauty = await Product.find({ category: "beauty" });
-  res.render("productpages/beauty.ejs", { beauty, showContainer2: false });
+  res.render("productpages/beauty", { beauty, showContainer2: false });
 });
 
 // ================= SERVER =================
